@@ -2,7 +2,6 @@ package com.example.pixabayapp.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
@@ -19,12 +18,10 @@ class PostAdapter(private val itemClick: (Post) -> Unit) :
     fun setItems(items: List<Post>) {
         this.items.clear()
         this.items.addAll(items)
-        notifyDataSetChanged()
     }
 
     fun clearItems() {
         this.items.clear()
-        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
