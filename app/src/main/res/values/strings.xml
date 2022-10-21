@@ -3,4 +3,5 @@
     <string name="title_menu_search">Search</string>
     <string name="text_empty_state">Item is Empty</string>
     <string name="title_search">Title Search</string>
+    <string name="upload">Upload</string>
 </resources>

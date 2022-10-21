@@ -1,24 +1,26 @@
-package com.example.pixabayapp.ui
+package com.example.pixabayapp.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pixabayapp.R
 import com.example.pixabayapp.databinding.ActivityMainBinding
-import com.example.pixabayapp.service.ApiClient
-import com.example.pixabayapp.service.ApiHelper
+import com.example.pixabayapp.ui.image.ImageActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by viewModels()
 
     private val adapter: PostAdapter by lazy {
         PostAdapter {
@@ -29,15 +31,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
-        viewModel = ViewModelProvider(
-            this,
-            MainViewModelFactory(ApiHelper(ApiClient.instance))
-        )[MainViewModel::class.java]
-
         initList()
         observeData()
+        setClickListener()
+        viewModel.searchPost("minions")
+    }
 
+    private fun setClickListener() {
+        binding.btnToImage.setOnClickListener {
+            startActivity(Intent(this@MainActivity, ImageActivity::class.java))
+        }
     }
 
     private fun observeData() {
@@ -52,14 +55,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
         viewModel.searchResult.observe(this) {
-            if (it.posts.isNullOrEmpty()) {
+            if (it.payload!!.posts.isEmpty()) {
                 adapter.clearItems()
                 binding.tvError.isVisible = true
                 binding.tvError.text = getString(R.string.text_empty_state)
             } else {
-                adapter.setItems(it.posts)
+                adapter.setItems(it.payload.posts)
             }
         }
+
     }
 
     private fun initList() {

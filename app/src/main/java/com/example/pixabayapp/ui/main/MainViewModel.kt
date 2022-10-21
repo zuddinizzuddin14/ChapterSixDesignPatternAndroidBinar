@@ -1,16 +1,22 @@
-package com.example.pixabayapp.ui
+package com.example.pixabayapp.ui.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pixabayapp.model.SearchResponse
-import com.example.pixabayapp.repository.MainRepository
+import com.example.pixabayapp.Resource
+import com.example.pixabayapp.data.model.SearchResponse
+import com.example.pixabayapp.data.repository.MainRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel(private val mainRepository: MainRepository): ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    private val mainRepository: MainRepository
+    ): ViewModel() {
 
-    val searchResult = MutableLiveData<SearchResponse>()
+    val searchResult = MutableLiveData<Resource<SearchResponse>>()
     val loadingState = MutableLiveData<Boolean>()
     val errorState = MutableLiveData<Pair<Boolean, Exception?>>()
 
@@ -19,7 +25,7 @@ class MainViewModel(private val mainRepository: MainRepository): ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             errorState.postValue(Pair(false, null))
             try {
-                val data = mainRepository.searchPhoto(query = query)
+                val data = mainRepository.searchPhoto(query)
                 viewModelScope.launch(Dispatchers.Main) {
                     searchResult.postValue(data)
                     loadingState.postValue(false)
@@ -33,4 +39,5 @@ class MainViewModel(private val mainRepository: MainRepository): ViewModel() {
             }
         }
     }
+
 }

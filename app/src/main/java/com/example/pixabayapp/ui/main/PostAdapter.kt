@@ -1,4 +1,4 @@
-package com.example.pixabayapp.ui
+package com.example.pixabayapp.ui.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,7 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import com.example.pixabayapp.R
 import com.example.pixabayapp.databinding.ItemPostBinding
-import com.example.pixabayapp.model.Post
+import com.example.pixabayapp.data.model.Post
 
 
 class PostAdapter(private val itemClick: (Post) -> Unit) :

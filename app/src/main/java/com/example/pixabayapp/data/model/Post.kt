@@ -1,4 +1,4 @@
-package com.example.pixabayapp.model
+package com.example.pixabayapp.data.model
 
 
 import com.google.gson.annotations.SerializedName

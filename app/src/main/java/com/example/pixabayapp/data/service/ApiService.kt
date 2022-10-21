@@ -1,6 +1,6 @@
-package com.example.pixabayapp.service
+package com.example.pixabayapp.data.service
 
-import com.example.pixabayapp.model.SearchResponse
+import com.example.pixabayapp.data.model.SearchResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

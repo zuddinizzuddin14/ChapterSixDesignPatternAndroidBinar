@@ -1,4 +1,4 @@
-package com.example.pixabayapp.model
+package com.example.pixabayapp.data.model
 
 import com.google.gson.annotations.SerializedName
 
@@ -11,6 +11,6 @@ data class SearchResponse(
     val totalHits: Int?,
 
     @SerializedName("hits")
-    val posts: List<Post>?
+    val posts: List<Post>
 
 )
