@@ -1,6 +1,5 @@
 package com.example.pixabayapp.ui.main
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -10,7 +9,6 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pixabayapp.R
 import com.example.pixabayapp.databinding.ActivityMainBinding
-import com.example.pixabayapp.ui.image.ImageActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,13 +32,9 @@ class MainActivity : AppCompatActivity() {
         initList()
         observeData()
         setClickListener()
-        viewModel.searchPost("minions")
     }
 
     private fun setClickListener() {
-        binding.btnToImage.setOnClickListener {
-            startActivity(Intent(this@MainActivity, ImageActivity::class.java))
-        }
     }
 
     private fun observeData() {
